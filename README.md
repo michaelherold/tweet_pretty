@@ -1,8 +1,21 @@
 # TweetPretty
 
+[![Build Status](https://travis-ci.org/michaelherold/tweet_pretty.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/michaelherold/tweet_pretty.png?travis)][gemnasium]
+[![Code Climate](https://codeclimate.com/github/michaelherold/tweet_pretty.png)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/michaelherold/tweet_pretty/badge.png?branch=master)][coveralls]
+
+[gem]: https://rubygems.org/gems/twitter
+[travis]: http://travis-ci.org/michaelherold/twe
+[gemnasium]: https://gemnasium.com/michaelherold/tweet_pretty
+[codeclimate]: https://codeclimate.com/github/michaelherold/tweet_pretty
+[coveralls]: https://coveralls.io/r/michaelherold/tweet_pretty
+[pledgie]: http://pledgie.com/campaigns/18388
+
 As the missing formatting tool for the Twitter gem, TweetPretty allows you to
-easily replace entities in tweets to conform to
-[Twitter's Display Requirements](https://dev.twitter.com/terms/display-requirements).
+easily replace entities in tweets to conform to [Twitter's Display Requirements][display-reqs].
+
+[display-reqs]: https://dev.twitter.com/terms/display-requirements
 
 ## Installation
 
@@ -20,7 +33,7 @@ Or install it yourself as:
 
 ## Usage
 
-Use the [Twitter gem](https://github.com/sferik/twitter) to pull a tweet:
+Use the [Twitter gem][twitter-gem] to pull a tweet:
 
 ```ruby
     tweet = Twitter.status(379713438806597632)
@@ -35,6 +48,8 @@ a properly converted HTML snippet:
     tweet.to_html
     => "Pardon this test tweet. It&#39;s hard to find tweets containing at least one of each entity. <a class='hashtag' href='http://twitter.com/search?q=#devtest'>#devtest</a> <a class='user-mention' title='Michael Herold' href='http://twitter.com/mherold'>@mherold</a> <a class='link' href='https://t.co/CbYo8pjDDO'>twitter.com/mherold</a>"
 ```
+
+[twitter-gem]: https://github.com/sferik/twitter
 
 ## Contributing
 
