@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TweetPretty::EntityFormatter do
-  let(:no_entities_tweet_data) { { id: 1, text: "This is a test tweet" } }
+  let(:no_entities_tweet_data) { { :id => 1, :text => "This is a test tweet" } }
   let(:full_tweet_data) {
     {
         :id => 1,

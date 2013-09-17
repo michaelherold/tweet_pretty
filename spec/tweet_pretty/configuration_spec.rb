@@ -13,12 +13,12 @@ describe TweetPretty::Configuration do
 
   describe "#configure" do
     it "sets individual values" do
-      TweetPretty.configure(hashtag_class: "test")
+      TweetPretty.configure(:hashtag_class => "test")
       TweetPretty.config.hashtag_class.should == "test"
     end
 
     it "sets via a hash" do
-      config = {hashtag_class: "test1", url_class: "test2"}
+      config = {:hashtag_class => "test1", :url_class => "test2"}
       TweetPretty.configure(config)
       TweetPretty.config.hashtag_class.should == "test1"
       TweetPretty.config.url_class.should == "test2"
