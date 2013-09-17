@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TweetPretty do
-  let (:tweet) { Twitter::Tweet.new({ id: 1, text: "This is a test tweet" }) }
+  let (:tweet) { Twitter::Tweet.new({ :id => 1, :text => "This is a test tweet" }) }
 
   describe "#to_html" do
     it "is monkey patched into Twitter::Tweet" do
