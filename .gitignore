@@ -1,0 +1,14 @@
+*.gem
+*.rbc
+.bundle
+.config
+.idea
+.ruby-gemset
+.ruby-version
+.rvmrc
+.yardoc
+Gemfile.lock
+coverage
+doc
+pkg
+spec/reports
