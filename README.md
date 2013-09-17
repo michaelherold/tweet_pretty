@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/michaelherold/tweet_pretty/badge.png?branch=master)][coveralls]
 
 [gem]: https://rubygems.org/gems/twitter
-[travis]: http://travis-ci.org/michaelherold/twe
+[travis]: http://travis-ci.org/michaelherold/tweet_pretty
 [gemnasium]: https://gemnasium.com/michaelherold/tweet_pretty
 [codeclimate]: https://codeclimate.com/github/michaelherold/tweet_pretty
 [coveralls]: https://coveralls.io/r/michaelherold/tweet_pretty
