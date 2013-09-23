@@ -37,7 +37,7 @@ If you're not working in an environment where gems are auto-loaded, then require
 the gem to monkey patch the ```Twitter::Tweet``` class:
 
 ```ruby
-require 'tweet_status'
+require 'tweet_pretty'
 ```
 
 Use the [Twitter gem][twitter-gem] to pull a tweet:
