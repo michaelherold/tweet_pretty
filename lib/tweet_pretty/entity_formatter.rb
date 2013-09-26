@@ -61,7 +61,7 @@ module TweetPretty
 
     def replace_hashtags(text, entity)
       css_class = TweetPretty.config.hashtag_class
-      "<a class='#{css_class}' href='http://twitter.com/search?q=##{url_encode entity.text}' #{"target='_blank'" if @target == :blank}>#{html_escape text}</a>"
+      "<a class='#{css_class}' href='http://twitter.com/search?q=%23#{url_encode entity.text}' #{"target='_blank'" if @target == :blank}>#{html_escape text}</a>"
     end
 
     def replace_user_mentions(text, entity)
