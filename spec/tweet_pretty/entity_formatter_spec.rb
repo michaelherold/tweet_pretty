@@ -30,6 +30,7 @@ describe TweetPretty::EntityFormatter do
         }
     }
   }
+  before(:each) { TweetPretty::Configuration.set_defaults }
 
   context "on a tweet with no entities" do
     let(:tweet) { Twitter::Tweet.new(no_entities_tweet_data) }
@@ -48,7 +49,7 @@ describe TweetPretty::EntityFormatter do
 
     describe "#format" do
       it "returns the expected output" do
-        expected = "Test tweet. <a class='hashtag' href='http://twitter.com/search?q=#test'>#test</a> <a class='user-mention' title='Test User' href='http://twitter.com/test'>@test</a> <a class='link' href='https://t.co/t'>example.com</a> This is a test."
+        expected = "Test tweet. <a class='hashtag' href='http://twitter.com/search?q=#test' target='_blank'>#test</a> <a class='user-mention' title='Test User' href='http://twitter.com/test' target='_blank'>@test</a> <a class='link' href='https://t.co/t' target='_blank'>example.com</a> This is a test."
         subject.should == expected
       end
     end

@@ -1,8 +1,9 @@
 module TweetPretty
   class EntityFormatter
-    def initialize(tweet)
+    def initialize(tweet, opts = {})
       @replacements = {}
       @tweet = tweet
+      @target = opts[:target] || :blank
     end
 
     def prettify
@@ -60,17 +61,17 @@ module TweetPretty
 
     def replace_hashtags(text, entity)
       css_class = TweetPretty.config.hashtag_class
-      "<a class='#{css_class}' href='http://twitter.com/search?q=##{url_encode entity.text}'>#{html_escape text}</a>"
+      "<a class='#{css_class}' href='http://twitter.com/search?q=##{url_encode entity.text}' #{"target='_blank'" if @target == :blank}>#{html_escape text}</a>"
     end
 
     def replace_user_mentions(text, entity)
       css_class = TweetPretty.config.user_mention_class
-      "<a class='#{css_class}' title='#{html_escape entity.name}' href='http://twitter.com/#{url_encode entity.screen_name}'>#{html_escape text}</a>"
+      "<a class='#{css_class}' title='#{html_escape entity.name}' href='http://twitter.com/#{url_encode entity.screen_name}' #{"target='_blank'" if @target == :blank}>#{html_escape text}</a>"
     end
 
     def replace_urls(text, entity)
       css_class = TweetPretty.config.url_class
-      "<a class='#{css_class}' href='#{entity.url}'>#{html_escape entity.display_url}</a>"
+      "<a class='#{css_class}' href='#{entity.url}' #{"target='_blank'" if @target == :blank}>#{html_escape entity.display_url}</a>"
     end
 
     def url_encode(s)
