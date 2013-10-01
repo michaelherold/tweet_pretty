@@ -16,6 +16,7 @@ module TweetPretty
     attr_accessor :data
 
     OPTIONS = [
+        :media_class,
         :hashtag_class,
         :url_class,
         :user_mention_class
@@ -31,6 +32,7 @@ module TweetPretty
     end
 
     def set_defaults
+      @data[:media_class] = "media"
       @data[:hashtag_class] = "hashtag"
       @data[:url_class] = "link"
       @data[:user_mention_class] = "user-mention"
