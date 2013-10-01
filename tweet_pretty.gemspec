@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir.glob("spec/**/*")
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "twitter", ">= 4.8.1"
+  #spec.add_dependency "twitter", ">= 4.8.1"
 
   spec.add_development_dependency "bundler", "~> 1.3"
 end

@@ -16,7 +16,8 @@ describe TweetPretty::EntityFormatter do
             :urls => [
                 {
                     :url          => "https://t.co/t",
-                    :display_url  => "example.com",
+                    :expanded_url => "example.com/this-is-a-long-url",
+                    :display_url  => "example.com/this-is-a-lon…",
                     :indices      => [24, 38]
                 }
             ],
@@ -49,7 +50,7 @@ describe TweetPretty::EntityFormatter do
 
     describe "#format" do
       it "returns the expected output" do
-        expected = "Test tweet. <a class='hashtag' href='http://twitter.com/search?q=%23test' target='_blank'>#test</a> <a class='user-mention' title='Test User' href='http://twitter.com/test' target='_blank'>@test</a> <a class='link' href='https://t.co/t' target='_blank'>example.com</a> This is a test."
+        expected = "Test tweet. <a class='hashtag' href='http://twitter.com/search?q=%23test' target='_blank'>#test</a> <a class='user-mention' title='Test User' href='http://twitter.com/test' target='_blank'>@test</a> <a class='link' href='https://t.co/t' target='_blank'>example.com/this-is-a-lon…</a> This is a test."
         subject.should == expected
       end
     end

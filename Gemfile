@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
+gem 'twitter', github: 'michaelherold/twitter', ref: "f914d0c7a"
 
 group :development do
   gem 'pry'
