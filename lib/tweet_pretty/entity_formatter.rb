@@ -8,29 +8,10 @@ module TweetPretty
     def prettify
       return html_escape(@tweet.text) unless @tweet.entities?
 
-      result = ""
-      last_i = 0
-      i = 0
+      result = @tweet.text.dup
 
-      while i < @tweet.text.length do
-        replacing_at = replacements[i]
-
-        if replacing_at
-          stop = replacing_at[0]
-          entity = replacing_at[1]
-          if i > last_i
-            result += html_escape(@tweet.text[last_i...i])
-          end
-          result += replace(@tweet.text[i...stop], entity, replacing_at[2])
-          i = stop - 1
-          last_i = stop
-        end
-
-        i += 1
-      end
-
-      if i > last_i
-        result += html_escape(@tweet.text[last_i...i])
+      replacements.sort.reverse_each do |start, replacement|
+        result[start...replacement[0]] = replace(result[start...replacement[0]], replacement[1], replacement[2])
       end
 
       result
