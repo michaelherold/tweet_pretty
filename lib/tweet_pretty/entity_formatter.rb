@@ -1,3 +1,5 @@
+require 'tweet_pretty/replacement'
+
 module TweetPretty
   class EntityFormatter
     def initialize(tweet, opts = {})
@@ -10,8 +12,8 @@ module TweetPretty
 
       result = @tweet.text.dup
 
-      replacements.sort.reverse_each do |start, replacement|
-        result[start...replacement[0]] = replace(result[start...replacement[0]], replacement[1], replacement[2])
+      replacements.sort.reverse_each do |r|
+        result[r.start...r.finish] = replace(result[r.start...r.finish], r.entity, r.type)
       end
 
       result
@@ -28,11 +30,11 @@ module TweetPretty
     private
 
     def create_replacements
-      replacements = {}
+      replacements = []
 
       entity_types.each do |type|
         @tweet.send(type).each do |entity|
-          replacements[entity.indices[0]] = [entity.indices[1], entity, type]
+          replacements << Replacement.new(entity)
         end
       end
 
