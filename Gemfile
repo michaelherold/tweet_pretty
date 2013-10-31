@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'twitter', :github => 'michaelherold/twitter', :ref => "f914d0c7a"
+gem 'twitter', :github => 'sferik/twitter', :ref => "0bdb1640a93a629c1d1b9814c861084f66c0f90d"
 
-group :development do
+group :development, :test do
   gem 'pry'
 end
 
