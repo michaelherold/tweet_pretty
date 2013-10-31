@@ -17,9 +17,13 @@ module TweetPretty
 
     OPTIONS = [
         :media_class,
-        :hashtag_class,
-        :url_class,
-        :user_mention_class
+        :hashtags_class,
+        :urls_class,
+        :user_mentions_class,
+        :media_string,
+        :hashtags_string,
+        :urls_string,
+        :user_mentions_string
     ]
 
     def initialize
@@ -33,9 +37,12 @@ module TweetPretty
 
     def set_defaults
       @data[:media_class] = "media"
-      @data[:hashtag_class] = "hashtag"
-      @data[:url_class] = "link"
-      @data[:user_mention_class] = "user-mention"
+      @data[:hashtags_class] = "hashtag"
+      @data[:urls_class] = "link"
+      @data[:user_mentions_class] = "user-mention"
+      @data[:media_string] = @data[:urls_string] = %q(<a class="%{css}" href="%{url}">%{display_url}</a>)
+      @data[:hashtags_string] = %q(<a class="%{css}" href="http://twitter.com/search?q=%%23%{entity_text}">%{text}</a>)
+      @data[:user_mentions_string] = %q(<a class="%{css}" title="%{name}" href="http://twitter.com/%{screen_name}">%{text}</a>)
     end
 
     ##

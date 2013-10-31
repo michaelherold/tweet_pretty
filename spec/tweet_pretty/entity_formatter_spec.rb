@@ -61,7 +61,7 @@ describe TweetPretty::EntityFormatter do
 
     describe "#format" do
       it "returns the expected output" do
-        expected = "Test tweet. <a class='hashtag' href='http://twitter.com/search?q=%23test' target='_blank'>#test</a> <a class='user-mention' title='Test User' href='http://twitter.com/test' target='_blank'>@test</a> <a class='link' href='https://t.co/t' target='_blank'>example.com/this-is-a-lon…</a> <a class='media' href='http://t.co/m' target='_blank'>pic.twitter.com/m</a> This is a test."
+        expected = %q(Test tweet. <a class="hashtag" href="http://twitter.com/search?q=%23test">#test</a> <a class="user-mention" title="Test User" href="http://twitter.com/test">@test</a> <a class="link" href="https://t.co/t">example.com/this-is-a-lon…</a> <a class="media" href="http://t.co/m">pic.twitter.com/m</a> This is a test.)
         subject.should == expected
       end
     end

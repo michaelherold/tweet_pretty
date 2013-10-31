@@ -1,7 +1,6 @@
 module TweetPretty
   class EntityFormatter
     def initialize(tweet, opts = {})
-      @replacements = {}
       @tweet = tweet
       @target = opts[:target] || :blank
     end
@@ -9,25 +8,20 @@ module TweetPretty
     def prettify
       return html_escape(@tweet.text) unless @tweet.entities?
 
-      ["hashtags", "media", "urls", "user_mentions"].each do |type|
-        add_replacements type
-      end
-
       result = ""
       last_i = 0
       i = 0
 
       while i < @tweet.text.length do
-        replacing_at = @replacements[i]
+        replacing_at = replacements[i]
 
         if replacing_at
           stop = replacing_at[0]
-          f = replacing_at[1]
-          entity = replacing_at[2]
+          entity = replacing_at[1]
           if i > last_i
             result += html_escape(@tweet.text[last_i...i])
           end
-          result += send(f, @tweet.text[i...stop], entity)
+          result += replace(@tweet.text[i...stop], entity, replacing_at[2])
           i = stop - 1
           last_i = stop
         end
@@ -42,41 +36,48 @@ module TweetPretty
       result
     end
 
+    def replacements
+      @replacements ||= create_replacements
+    end
+
     def self.format(tweet)
       self.new(tweet).prettify
     end
 
     private
 
-    def add_replacements(type)
-      return unless ["hashtags", "media", "urls", "user_mentions"].include? type
-      @tweet.send(type).each do |entity|
-        @replacements[entity.indices[0]] = [entity.indices[1], "replace_#{type}", entity]
+    def create_replacements
+      replacements = {}
+
+      entity_types.each do |type|
+        @tweet.send(type).each do |entity|
+          replacements[entity.indices[0]] = [entity.indices[1], entity, type]
+        end
       end
+
+      replacements
+    end
+
+    def entity_types
+      ["hashtags", "media", "urls", "user_mentions"]
     end
 
     def html_escape(s)
       ::ERB::Util.html_escape(s)
     end
 
-    def replace_hashtags(text, entity)
-      css_class = TweetPretty.config.hashtag_class
-      "<a class='#{css_class}' href='http://twitter.com/search?q=%23#{url_encode entity.text}' #{"target='_blank'" if @target == :blank}>#{html_escape text}</a>"
-    end
+    def replace(text, entity, type)
+      return text unless entity_types.include? type
 
-    def replace_media(text, entity)
-      css_class = TweetPretty.config.media_class
-      "<a class='#{css_class}' href='#{entity.url}' #{"target='_blank'" if @target == :blank}>#{html_escape entity.display_url}</a>"
-    end
-
-    def replace_user_mentions(text, entity)
-      css_class = TweetPretty.config.user_mention_class
-      "<a class='#{css_class}' title='#{html_escape entity.name}' href='http://twitter.com/#{url_encode entity.screen_name}' #{"target='_blank'" if @target == :blank}>#{html_escape text}</a>"
-    end
-
-    def replace_urls(text, entity)
-      css_class = TweetPretty.config.url_class
-      "<a class='#{css_class}' href='#{entity.url}' #{"target='_blank'" if @target == :blank}>#{html_escape entity.display_url}</a>"
+      TweetPretty.config.send("#{type}_string") % Hash.new.tap do |h|
+        h[:css] = TweetPretty.config.send("#{type}_class")
+        h[:text] = html_escape(text)
+        h[:display_url] = html_escape(entity.display_url) if entity.respond_to? "display_url"
+        h[:entity_text] = url_encode(entity.text) if entity.respond_to? "text"
+        h[:name] = html_escape(entity.name) if entity.respond_to? "name"
+        h[:screen_name] = html_escape(entity.screen_name) if entity.respond_to? "screen_name"
+        h[:url] = entity.url if entity.respond_to? "url"
+      end
     end
 
     def url_encode(s)
