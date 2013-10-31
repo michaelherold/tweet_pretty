@@ -12,7 +12,7 @@ module TweetPretty
 
   ##
   # @return String
-  def self.to_html(tweet)
-    EntityFormatter.format(tweet)
+  def self.to_html(tweet, opts={})
+    EntityFormatter.format(tweet, opts)
   end
 end

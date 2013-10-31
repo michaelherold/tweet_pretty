@@ -2,43 +2,39 @@ require 'tweet_pretty/replacement'
 
 module TweetPretty
   class EntityFormatter
-    def initialize(tweet, opts = {})
-      @tweet = tweet
-      @target = opts[:target] || :blank
+    def initialize(opts = {})
+      @target = opts[:target] || nil
     end
 
-    def prettify
-      return html_escape(@tweet.text) unless @tweet.entities?
+    def prettify(tweet)
+      return html_escape(tweet.text) unless tweet.entities?
 
-      result = @tweet.text.dup
+      result = tweet.text.dup
+      replacements = create_replacements(tweet)
 
-      replacements.sort.reverse_each do |r|
+      replacements.reverse_each do |r|
         result[r.start...r.finish] = replace(result[r.start...r.finish], r.entity, r.type)
       end
 
       result
     end
 
-    def replacements
-      @replacements ||= create_replacements
-    end
-
-    def self.format(tweet)
-      self.new(tweet).prettify
+    def self.format(tweet, opts = {})
+      self.new(opts).prettify(tweet)
     end
 
     private
 
-    def create_replacements
+    def create_replacements(tweet)
       replacements = []
 
       entity_types.each do |type|
-        @tweet.send(type).each do |entity|
+        tweet.send(type).each do |entity|
           replacements << Replacement.new(entity)
         end
       end
 
-      replacements
+      replacements.sort
     end
 
     def entity_types
@@ -60,6 +56,17 @@ module TweetPretty
         h[:name] = html_escape(entity.name) if entity.respond_to? "name"
         h[:screen_name] = html_escape(entity.screen_name) if entity.respond_to? "screen_name"
         h[:url] = entity.url if entity.respond_to? "url"
+        h[:target] = target
+      end
+    end
+
+    def target
+      if @target.nil?
+        ""
+      elsif @target == :blank
+        %q( target="_blank")
+      else
+        %Q( target="#{@target}")
       end
     end
 

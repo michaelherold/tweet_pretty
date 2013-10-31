@@ -64,6 +64,18 @@ describe TweetPretty::EntityFormatter do
         expected = %q(Test tweet. <a class="hashtag" href="http://twitter.com/search?q=%23test">#test</a> <a class="user-mention" title="Test User" href="http://twitter.com/test">@test</a> <a class="link" href="https://t.co/t">example.com/this-is-a-lon…</a> <a class="media" href="http://t.co/m">pic.twitter.com/m</a> This is a test.)
         subject.should == expected
       end
+
+      describe "allows a target" do
+        it "to be a blank window" do
+          expected = %q(Test tweet. <a class="hashtag" href="http://twitter.com/search?q=%23test" target="_blank">#test</a> <a class="user-mention" title="Test User" href="http://twitter.com/test" target="_blank">@test</a> <a class="link" href="https://t.co/t" target="_blank">example.com/this-is-a-lon…</a> <a class="media" href="http://t.co/m" target="_blank">pic.twitter.com/m</a> This is a test.)
+          expect(TweetPretty::EntityFormatter.format(tweet, target: :blank)).to eq(expected)
+        end
+
+        it "to be anything else" do
+          expected = %q(Test tweet. <a class="hashtag" href="http://twitter.com/search?q=%23test" target="foo">#test</a> <a class="user-mention" title="Test User" href="http://twitter.com/test" target="foo">@test</a> <a class="link" href="https://t.co/t" target="foo">example.com/this-is-a-lon…</a> <a class="media" href="http://t.co/m" target="foo">pic.twitter.com/m</a> This is a test.)
+          expect(TweetPretty::EntityFormatter.format(tweet, target: "foo")).to eq(expected)
+        end
+      end
     end
   end
 end

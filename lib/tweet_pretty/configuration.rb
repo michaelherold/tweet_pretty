@@ -42,9 +42,9 @@ module TweetPretty
       @data[:hashtags_class] = "hashtag"
       @data[:urls_class] = "link"
       @data[:user_mentions_class] = "user-mention"
-      @data[:media_string] = @data[:urls_string] = %q(<a class="%{css}" href="%{url}">%{display_url}</a>)
-      @data[:hashtags_string] = %q(<a class="%{css}" href="http://twitter.com/search?q=%%23%{entity_text}">%{text}</a>)
-      @data[:user_mentions_string] = %q(<a class="%{css}" title="%{name}" href="http://twitter.com/%{screen_name}">%{text}</a>)
+      @data[:media_string] = @data[:urls_string] = %q(<a class="%{css}" href="%{url}"%{target}>%{display_url}</a>)
+      @data[:hashtags_string] = %q(<a class="%{css}" href="http://twitter.com/search?q=%%23%{entity_text}"%{target}>%{text}</a>)
+      @data[:user_mentions_string] = %q(<a class="%{css}" title="%{name}" href="http://twitter.com/%{screen_name}"%{target}>%{text}</a>)
     end
 
     ##
