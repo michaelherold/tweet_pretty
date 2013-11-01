@@ -9,7 +9,7 @@ module TweetPretty
   end
 
   def self.config
-    Configuration.instance.data
+    Configuration.instance
   end
 
   class Configuration
