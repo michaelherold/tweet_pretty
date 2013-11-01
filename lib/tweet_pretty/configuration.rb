@@ -25,7 +25,8 @@ module TweetPretty
         :media_string,
         :hashtags_string,
         :urls_string,
-        :user_mentions_string
+        :user_mentions_string,
+        :target,
     ]
 
     def initialize
@@ -45,6 +46,7 @@ module TweetPretty
       @data[:media_string] = @data[:urls_string] = %q(<a class="%{css}" href="%{url}"%{target}>%{display_url}</a>)
       @data[:hashtags_string] = %q(<a class="%{css}" href="http://twitter.com/search?q=%%23%{entity_text}"%{target}>%{text}</a>)
       @data[:user_mentions_string] = %q(<a class="%{css}" title="%{name}" href="http://twitter.com/%{screen_name}"%{target}>%{text}</a>)
+      @data[:target] = nil
     end
 
     ##
