@@ -7,36 +7,34 @@ describe TweetPretty::Configuration do
 
     it "generators setters" do
       subject.hashtags_class = "test"
-      subject.hashtags_class.should == "test"
+      expect(TweetPretty.config.hashtags_class).to eq("test")
     end
   end
 
   describe "#configure" do
     it "sets individual values" do
       TweetPretty.configure(:hashtags_class => "test")
-      TweetPretty.config.hashtags_class.should == "test"
+      expect(TweetPretty.config.hashtags_class).to eq("test")
     end
 
     it "sets via a hash" do
       config = {:hashtags_class => "test1", :urls_class => "test2"}
       TweetPretty.configure(config)
-      TweetPretty.config.hashtags_class.should == "test1"
-      TweetPretty.config.urls_class.should == "test2"
+      expect(TweetPretty.config.hashtags_class).to eq("test1")
+      expect(TweetPretty.config.urls_class).to eq("test2")
     end
   end
 
   describe "#new" do
     it "raises an exception" do
-      expect {
-        TweetPretty::Configuration.new
-      }.to raise_error NoMethodError
+      expect { TweetPretty::Configuration.new }.to raise_error NoMethodError
     end
   end
 
   describe "#set_defaults" do
     it "sets the default value for each option" do
       TweetPretty::Configuration.set_defaults
-      TweetPretty.config.hashtags_class.should == "hashtag"
+      expect(TweetPretty.config.hashtags_class).to eq("hashtag")
     end
   end
 
@@ -45,7 +43,7 @@ describe TweetPretty::Configuration do
 
     it "sets the default value for each option" do
       subject.set_defaults
-      subject.hashtags_class.should == "hashtag"
+      expect(subject.hashtags_class).to eq("hashtag")
     end
   end
 end

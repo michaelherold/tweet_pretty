@@ -50,7 +50,7 @@ describe TweetPretty::EntityFormatter do
 
     describe "#format" do
       it "returns the tweet text" do
-        subject.should == tweet.text
+        expect(subject).to eq(tweet.text)
       end
     end
   end
@@ -62,7 +62,7 @@ describe TweetPretty::EntityFormatter do
     describe "#format" do
       it "returns the expected output" do
         expected = %q(Test tweet. <a class="hashtag" href="http://twitter.com/search?q=%23test">#test</a> <a class="user-mention" title="Test User" href="http://twitter.com/test">@test</a> <a class="link" href="https://t.co/t">example.com/this-is-a-lon…</a> <a class="media" href="http://t.co/m">pic.twitter.com/m</a> This is a test.)
-        subject.should == expected
+        expect(subject).to eq(expected)
       end
 
       it "returns the expected Markdown output" do
