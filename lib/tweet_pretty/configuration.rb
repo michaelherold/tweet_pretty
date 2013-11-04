@@ -30,6 +30,10 @@ module TweetPretty
         :hashtags_md_string,
         :urls_md_string,
         :user_mentions_md_string,
+        :media_rst_string,
+        :hashtags_rst_string,
+        :urls_rst_string,
+        :user_mentions_rst_string,
         :target,
     ]
 
@@ -53,6 +57,9 @@ module TweetPretty
       @data[:media_md_string] = @data[:urls_md_string] = %q|[%{display_url}](%{url})|
       @data[:hashtags_md_string] = %q|[%{text}](http://twitter.com/search?q=%%23%{entity_text})|
       @data[:user_mentions_md_string] = %q|[%{text}](http://twitter.com/%{screen_name})|
+      @data[:media_rst_string] = @data[:urls_rst_string] = %q(`%{display_url} <%{url}>`)
+      @data[:hashtags_rst_string] = %q(`%{text} <http://twitter.com/search?q=%%23%{entity_text}>`)
+      @data[:user_mentions_rst_string] = %q(`%{text} <http://twitter.com/%{screen_name}>`)
       @data[:target] = nil
     end
 

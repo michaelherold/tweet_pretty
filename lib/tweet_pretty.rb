@@ -19,4 +19,8 @@ module TweetPretty
   def self.to_md(tweet)
     EntityFormatter.format(tweet, format: :md)
   end
+
+  def self.to_rst(tweet)
+    EntityFormatter.format(tweet, format: :rst)
+  end
 end
