@@ -12,17 +12,22 @@ module TweetPretty
 
     attr_reader :entity, :start, :finish
 
-    def initialize(entity)
+    def initialize(entity, format=:html)
       unless [Twitter::Entity, Twitter::Media::Photo].any? {|type| entity.is_a? type }
         raise ArgumentError, "Argument is of wrong type (#{entity.class} for Twitter::Entity, Twitter::Media::Photo)"
       end
 
       @entity = entity
       @start, @finish = @entity.indices
+      @format = format
     end
 
     def css_class
       TweetPretty.config.send("#{type}_class")
+    end
+
+    def format
+      @format
     end
 
     def replace(text)
@@ -39,7 +44,7 @@ module TweetPretty
     end
 
     def string
-      TweetPretty.config.send("#{type}_string")
+      TweetPretty.config.send("#{type}_#{format}_string")
     end
 
     def target

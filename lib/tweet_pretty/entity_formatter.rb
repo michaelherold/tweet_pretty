@@ -2,11 +2,11 @@ require 'tweet_pretty/replacement'
 
 module TweetPretty
   class EntityFormatter
-    def prettify(tweet)
+    def prettify(tweet, format=:html)
       return html_escape(tweet.text) unless tweet.entities?
 
       result = tweet.text.dup
-      replacements = create_replacements(tweet)
+      replacements = create_replacements(tweet, format)
 
       replacements.reverse_each do |r|
         result[r.start...r.finish] = r.replace(result[r.start...r.finish])
@@ -15,18 +15,18 @@ module TweetPretty
       result
     end
 
-    def self.format(tweet)
-      self.new.prettify(tweet)
+    def self.format(tweet, format=:html)
+      self.new.prettify(tweet, format)
     end
 
     private
 
-    def create_replacements(tweet)
+    def create_replacements(tweet, format=:html)
       replacements = []
 
       entity_types.each do |type|
         tweet.send(type).each do |entity|
-          replacements << Replacement.new(entity)
+          replacements << Replacement.new(entity, format)
         end
       end
 

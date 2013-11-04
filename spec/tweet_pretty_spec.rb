@@ -10,4 +10,10 @@ describe TweetPretty do
       }.not_to raise_error
     end
   end
+
+  describe "#to_md" do
+    it "is monkey patched into Twitter::Tweet" do
+      expect{tweet.to_md}.not_to raise_error
+    end
+  end
 end

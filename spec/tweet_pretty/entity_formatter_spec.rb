@@ -65,6 +65,11 @@ describe TweetPretty::EntityFormatter do
         subject.should == expected
       end
 
+      it "returns the expected Markdown output" do
+        expected = %q|Test tweet. [#test](http://twitter.com/search?q=%23test) [@test](http://twitter.com/test) [example.com/this-is-a-lon…](https://t.co/t) [pic.twitter.com/m](http://t.co/m) This is a test.|
+        expect(TweetPretty::EntityFormatter.format(tweet, :md)).to eq(expected)
+      end
+
       describe "allows a target" do
         after { TweetPretty.config.target = nil
         }
